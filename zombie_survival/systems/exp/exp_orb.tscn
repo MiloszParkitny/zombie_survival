@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://boixl2e1r2h5i"]
+
+[ext_resource type="Script" uid="uid://d321ibs7nlf30" path="res://systems/exp/exp_orb.gd" id="1_k3o3q"]
+[ext_resource type="Texture2D" uid="uid://pngqyldytbsm" path="res://assets/textures/utility/exp.png" id="2_s158n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fh52i"]
+radius = 3.6055517
+
+[node name="exp_orb" type="Area2D" unique_id=1297000424 groups=["exp"]]
+light_mask = 2
+visibility_layer = 2
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_k3o3q")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=965930074]
+scale = Vector2(0.59375, 0.59375)
+texture = ExtResource("2_s158n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132630074]
+rotation = 0.7853982
+scale = Vector2(0.9999999, 0.9999999)
+shape = SubResource("CircleShape2D_fh52i")

@@ -1,0 +1,223 @@
+[gd_scene format=3 uid="uid://dyeldcqm4i3c0"]
+
+[ext_resource type="Script" uid="uid://tw1idp27vgyu" path="res://scenes/player/player.gd" id="1_v6fml"]
+[ext_resource type="Texture2D" uid="uid://c0esnee5oyh84" path="res://assets/textures/player/legs.png" id="2_tpg5x"]
+[ext_resource type="Texture2D" uid="uid://b86tp6xg54ie6" path="res://assets/textures/player/body.png" id="3_c3xxp"]
+[ext_resource type="PackedScene" uid="uid://cm8qy4ijfg7er" path="res://systems/combat/hurtbox.tscn" id="3_mdl7e"]
+[ext_resource type="AudioStream" uid="uid://dcjkt8caaui7j" path="res://systems/audio/M1911 SINGLE GUNSHOT SOUND FX.wav" id="4_524rm"]
+[ext_resource type="Texture2D" uid="uid://bha4mn3au62y7" path="res://assets/textures/player/shot.png" id="6_npwbq"]
+
+[sub_resource type="Animation" id="Animation_npwbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegsSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_v42im"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LegsSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pn6s4"]
+_data = {
+&"RESET": SubResource("Animation_npwbq"),
+&"walk": SubResource("Animation_v42im")
+}
+
+[sub_resource type="Animation" id="Animation_7oing"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_5stf6"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_180ig"]
+resource_name = "shoot"
+length = 0.333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BodySprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083, 0.166, 0.25),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_20koh"]
+_data = {
+&"RESET": SubResource("Animation_7oing"),
+&"idle": SubResource("Animation_5stf6"),
+&"shoot": SubResource("Animation_180ig")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_v6fml"]
+height = 56.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_70d11"]
+size = Vector2(21.5, 64)
+
+[sub_resource type="Animation" id="Animation_pn6s4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_20koh"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ov1oi"]
+resource_name = "shoot"
+length = 0.333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gun2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.083, 0.166, 0.249),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rn7t0"]
+_data = {
+&"RESET": SubResource("Animation_pn6s4"),
+&"idle": SubResource("Animation_20koh"),
+&"shoot": SubResource("Animation_ov1oi")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=480146536 groups=["player"]]
+script = ExtResource("1_v6fml")
+
+[node name="Legs" type="AnimationPlayer" parent="." unique_id=2045601148]
+libraries/ = SubResource("AnimationLibrary_pn6s4")
+
+[node name="LegsSprite" type="Sprite2D" parent="." unique_id=457734096]
+texture = ExtResource("2_tpg5x")
+hframes = 7
+
+[node name="Body" type="AnimationPlayer" parent="." unique_id=1182414583]
+libraries/ = SubResource("AnimationLibrary_20koh")
+
+[node name="BodySprite" type="Sprite2D" parent="." unique_id=571688211]
+texture = ExtResource("3_c3xxp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=418335179]
+position = Vector2(-4, 31)
+shape = SubResource("CapsuleShape2D_v6fml")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2125876859]
+
+[node name="walkTimer" type="Timer" parent="." unique_id=1632852207]
+wait_time = 0.2
+one_shot = true
+
+[node name="Gun" type="Marker2D" parent="." unique_id=898888547]
+position = Vector2(36, 15)
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1227269621]
+wait_time = 0.2
+one_shot = true
+
+[node name="Hurtbox" parent="." unique_id=1770788056 instance=ExtResource("3_mdl7e")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0" unique_id=682113605]
+position = Vector2(-2.25, 31)
+shape = SubResource("RectangleShape2D_70d11")
+
+[node name="ShootSound" type="AudioStreamPlayer2D" parent="." unique_id=502891989]
+position = Vector2(35, 15)
+stream = ExtResource("4_524rm")
+volume_db = -30.0
+
+[node name="Gun2" type="Sprite2D" parent="." unique_id=2101014360]
+position = Vector2(-14, 15)
+texture = ExtResource("6_npwbq")
+centered = false
+offset = Vector2(-50, -79)
+hframes = 4
+
+[node name="Muzzle" type="Node2D" parent="Gun2" unique_id=1617718525]
+position = Vector2(50, 0)
+
+[node name="Gun3" type="AnimationPlayer" parent="." unique_id=1968744634]
+libraries/ = SubResource("AnimationLibrary_rn7t0")
+
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+
+[editable path="Hurtbox"]
