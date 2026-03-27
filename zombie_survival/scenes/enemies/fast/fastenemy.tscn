@@ -59,6 +59,7 @@ corner_radius_bottom_left = 4
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_fxrmp")
+hp = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1076202342]
 position = Vector2(3, -27)

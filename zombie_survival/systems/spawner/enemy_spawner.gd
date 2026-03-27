@@ -108,7 +108,7 @@ func spawn_boss():
 	add_child(boss)
 	
 func get_boss_spawn_position():
-	var distance = 400 
+	var distance = 600 
 	
 	var angle = randf() * TAU
 	

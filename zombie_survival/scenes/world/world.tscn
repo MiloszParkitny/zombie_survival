@@ -148,20 +148,22 @@ texture_region_size = Vector2i(18, 18)
 0:6/0 = 0
 1:6/0 = 0
 2:6/0 = 0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_71ii3"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wbwoo"]
-texture = SubResource("CompressedTexture2D_71ii3")
-texture_region_size = Vector2i(18, 18)
-1:0/0 = 0
-2:0/0 = 0
-0:1/0 = 0
-1:1/0 = 0
-2:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
+3:4/0 = 0
+3:5/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+4:5/0 = 0
+4:4/0 = 0
+6:4/0 = 0
+5:4/0 = 0
+5:5/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+6:5/0 = 0
+6:3/0 = 0
+6:2/0 = 0
+6:1/0 = 0
+6:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_71ii3"]
 texture = ExtResource("16_m114p")
@@ -182,6 +184,7 @@ texture_region_size = Vector2i(18, 18)
 0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -9, 9, -9, 9, 6.834632, -9, 7.014492)
 1:2/0 = 0
 1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9, -9, 9, -9, 9, 6.834632, -9, 7.014492)
+2:2/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_mxkvs"]
 tile_size = Vector2i(18, 18)
@@ -189,7 +192,6 @@ physics_layer_0/collision_layer = 31
 physics_layer_0/collision_mask = 31
 sources/2 = SubResource("TileSetAtlasSource_71ii3")
 sources/0 = SubResource("TileSetAtlasSource_bt7bg")
-sources/1 = SubResource("TileSetAtlasSource_wbwoo")
 
 [sub_resource type="Resource" id="Resource_j2gmx"]
 script = ExtResource("4_1yooq")
@@ -259,6 +261,33 @@ time_end = 150
 enemy = ExtResource("6_5qq27")
 enemy_num = 2
 enemy_spawn_delay = 3
+metadata/_custom_type_script = "uid://ch7m3es3m6s3f"
+
+[sub_resource type="Resource" id="Resource_71ii3"]
+script = ExtResource("4_1yooq")
+time_start = 150
+time_end = 9999
+enemy = ExtResource("7_bq33v")
+enemy_num = 3
+enemy_spawn_delay = 2
+metadata/_custom_type_script = "uid://ch7m3es3m6s3f"
+
+[sub_resource type="Resource" id="Resource_bt7bg"]
+script = ExtResource("4_1yooq")
+time_start = 150
+time_end = 9999
+enemy = ExtResource("5_gb53w")
+enemy_num = 2
+enemy_spawn_delay = 2
+metadata/_custom_type_script = "uid://ch7m3es3m6s3f"
+
+[sub_resource type="Resource" id="Resource_wbwoo"]
+script = ExtResource("4_1yooq")
+time_start = 150
+time_end = 9999
+enemy = ExtResource("6_5qq27")
+enemy_num = 2
+enemy_spawn_delay = 2
 metadata/_custom_type_script = "uid://ch7m3es3m6s3f"
 
 [node name="World" type="Node2D" unique_id=610449622]
@@ -440,7 +469,7 @@ tile_map_data = PackedByteArray("AADb/9v/AgAAAAEAAADb/9z/AgACAAEAAADb/93/AgACAAE
 tile_set = SubResource("TileSet_mxkvs")
 
 [node name="EnemySpawner" parent="." unique_id=580605120 instance=ExtResource("3_j2gmx")]
-spawns = Array[ExtResource("4_1yooq")]([SubResource("Resource_j2gmx"), SubResource("Resource_qfnet"), SubResource("Resource_1yooq"), SubResource("Resource_gb53w"), SubResource("Resource_5qq27"), SubResource("Resource_dlabj"), SubResource("Resource_srmg5"), SubResource("Resource_umvgx")])
+spawns = Array[ExtResource("4_1yooq")]([SubResource("Resource_j2gmx"), SubResource("Resource_qfnet"), SubResource("Resource_1yooq"), SubResource("Resource_gb53w"), SubResource("Resource_5qq27"), SubResource("Resource_dlabj"), SubResource("Resource_srmg5"), SubResource("Resource_umvgx"), SubResource("Resource_71ii3"), SubResource("Resource_bt7bg"), SubResource("Resource_wbwoo")])
 
 [connection signal="pressed" from="UI/LevelUpPanel/VBoxContainer/Upgrade1" to="UI/LevelUpPanel" method="_on_upgrade_1_pressed"]
 [connection signal="pressed" from="UI/LevelUpPanel/VBoxContainer/Upgrade2" to="UI/LevelUpPanel" method="_on_upgrade_2_pressed"]

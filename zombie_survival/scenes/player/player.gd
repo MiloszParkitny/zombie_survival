@@ -2,26 +2,24 @@ extends CharacterBody2D
 
 var movement_speed = 25
 @export var hp = 5
+var min_fire_rate = 0.15
+var fire_rate = 0.37
+var damage = 1.2
 
 @onready var legs = $Legs
 @onready var body = $Body
-
 @onready var legs_sprite = $LegsSprite
 @onready var body_sprite = $BodySprite
-
 @onready var gun = $Gun2
 @onready var gun_anim = $Gun3
-
 @onready var shootTimer = $ShootTimer
 @onready var muzzle = $Gun2/Muzzle
+
 @onready var hp_bar = get_tree().get_first_node_in_group("ui_hp")
 @onready var level_up_panel = get_tree().get_first_node_in_group("level_up")
 @onready var exp_bar = get_tree().get_first_node_in_group("ui_exp")
 var gun_offset = Vector2(-14, 15) 
 var bullet_scene = preload("res://systems/combat/bullet.tscn")
-var min_fire_rate = 0.2
-var fire_rate = 0.4
-var damage = 1.2
 
 var exp = 0
 var level = 1
@@ -175,7 +173,7 @@ func level_up():
 	level += 1
 	
 	exp -= exp_to_next
-	exp_to_next += 5
+	exp_to_next += 10
 	
 	exp_bar.max_value = exp_to_next
 	exp_bar.value = exp

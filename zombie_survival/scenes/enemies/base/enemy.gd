@@ -37,7 +37,7 @@ func _on_hurtbox_hurt(damage):
 	hp_bar.value = hp
 	hp_bar.visible = hp < hp_bar.max_value
 	
-	sprite.modulate = Color(1, 0.3, 0.3) # czerwony flash
+	sprite.modulate = Color(1, 0.3, 0.3)
 	
 	await get_tree().create_timer(0.1).timeout
 	sprite.modulate = Color(1, 1, 1)
