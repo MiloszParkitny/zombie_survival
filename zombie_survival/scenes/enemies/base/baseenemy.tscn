@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://duq4wv4djuinx"]
+
+[ext_resource type="Script" uid="uid://ol6dwh8x0sc6" path="res://scenes/enemies/base/enemy.gd" id="1_af775"]
+[ext_resource type="Texture2D" uid="uid://mivulq0y6h7x" path="res://assets/textures/zombie/BaseEnemy.png" id="2_8wp3t"]
+[ext_resource type="PackedScene" uid="uid://cm8qy4ijfg7er" path="res://systems/combat/hurtbox.tscn" id="3_jf1mh"]
+[ext_resource type="PackedScene" uid="uid://cne6t11ghr62n" path="res://systems/combat/hitbox.tscn" id="4_xpbra"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5uy6h"]
+radius = 12.0
+height = 66.0
+
+[sub_resource type="Animation" id="Animation_5uy6h"]
+length = 1.2
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_c4w8v"]
+resource_name = "walk"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1667, 0.3333, 0.5, 0.6667, 0.8333, 1, 1.1667, 1.3333, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwavj"]
+_data = {
+&"RESET": SubResource("Animation_5uy6h"),
+&"walk": SubResource("Animation_c4w8v")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4w8v"]
+size = Vector2(26, 63)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwavj"]
+size = Vector2(30, 66)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uy6h"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4w8v"]
+bg_color = Color(0.54509807, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=433042184 groups=["attack", "enemy"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_af775")
+movement_speed = 20.0
+hp = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1076202342]
+texture = ExtResource("2_8wp3t")
+hframes = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=486961286]
+position = Vector2(-4, 30)
+shape = SubResource("CapsuleShape2D_5uy6h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1427643558]
+libraries/ = SubResource("AnimationLibrary_xwavj")
+
+[node name="Hurtbox" parent="." unique_id=1770788056 instance=ExtResource("3_jf1mh")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0" unique_id=682113605]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(-2, 31.5)
+shape = SubResource("RectangleShape2D_c4w8v")
+
+[node name="Hitbox" parent="." unique_id=300335576 instance=ExtResource("4_xpbra")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=1720026070]
+position = Vector2(-2, 31)
+shape = SubResource("RectangleShape2D_xwavj")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=50366479]
+offset_left = -23.0
+offset_top = -10.0
+offset_right = 18.0
+offset_bottom = -6.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5uy6h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c4w8v")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]

@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://c5dolqlsc6dcx"]
+
+[ext_resource type="Script" uid="uid://ol6dwh8x0sc6" path="res://scenes/enemies/base/enemy.gd" id="1_fydm6"]
+[ext_resource type="Texture2D" uid="uid://cldy85jg8xnpt" path="res://assets/textures/zombie/Boss.png" id="2_eig4w"]
+[ext_resource type="PackedScene" uid="uid://cm8qy4ijfg7er" path="res://systems/combat/hurtbox.tscn" id="3_ev41i"]
+[ext_resource type="PackedScene" uid="uid://cne6t11ghr62n" path="res://systems/combat/hitbox.tscn" id="4_v1dxa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5uy6h"]
+radius = 15.0
+height = 46.0
+
+[sub_resource type="Animation" id="Animation_5uy6h"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_c4w8v"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xwavj"]
+_data = {
+&"RESET": SubResource("Animation_5uy6h"),
+&"walk": SubResource("Animation_c4w8v")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4w8v"]
+size = Vector2(67, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwavj"]
+size = Vector2(27, 48)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5uy6h"]
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c4w8v"]
+bg_color = Color(0.54509807, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="boss" type="CharacterBody2D" unique_id=433042184 groups=["attack", "enemy"]]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_fydm6")
+movement_speed = 25.0
+hp = 30
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1076202342]
+position = Vector2(8, -26)
+scale = Vector2(1.2070314, 1.1523435)
+texture = ExtResource("2_eig4w")
+hframes = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=486961286]
+position = Vector2(-3, 2)
+shape = SubResource("CapsuleShape2D_5uy6h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1427643558]
+libraries/ = SubResource("AnimationLibrary_xwavj")
+
+[node name="Hurtbox" parent="." unique_id=1770788056 instance=ExtResource("3_ev41i")]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0" unique_id=682113605]
+light_mask = 7
+visibility_layer = 7
+position = Vector2(-1.5, 2)
+shape = SubResource("RectangleShape2D_c4w8v")
+
+[node name="Hitbox" parent="." unique_id=300335576 instance=ExtResource("4_v1dxa")]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="Hitbox" index="0" unique_id=1720026070]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_xwavj")
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=50366479]
+offset_left = -20.0
+offset_top = -38.0
+offset_right = 21.0
+offset_bottom = -34.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5uy6h")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c4w8v")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[connection signal="hurt" from="Hurtbox" to="." method="_on_hurtbox_hurt"]
+
+[editable path="Hurtbox"]
+[editable path="Hitbox"]
