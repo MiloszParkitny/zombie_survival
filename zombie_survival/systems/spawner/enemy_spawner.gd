@@ -87,7 +87,7 @@ func format_time(t):
 	var seconds = int(t % 60)
 	return "%02d:%02d" % [minutes, seconds]
 
-@onready var difficulty_button = $SettingsPanel/VBoxContainer/difficulty
+@onready var difficulty_button = ("SettingsPanel/VBoxContainer/difficulty")
 func _ready():
 	match GameSettings.difficulty:
 		"Easy":

@@ -92,6 +92,9 @@ collision_mask = 2
 position = Vector2(-2, 31)
 shape = SubResource("RectangleShape2D_xwavj")
 
+[node name="DisableHitBoxTimer" parent="Hitbox" index="1" unique_id=553620922]
+one_shot = false
+
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=50366479]
 offset_left = -23.0
 offset_top = -10.0

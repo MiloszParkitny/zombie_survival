@@ -8,6 +8,9 @@ extends CharacterBody2D
 @onready var hp_bar = $ProgressBar
 var exp_orb_scene = preload("res://systems/exp/exp_orb.tscn")
 
+@onready var hurtbox = $Hurtbox
+
+
 func _ready():
 	anim.play("walk")
 	var f = GameSettings.difficulty_factor
@@ -19,12 +22,19 @@ func _ready():
 
 func _physics_process(_delta):
 	var direction = global_position.direction_to(player.global_position)
-	velocity = direction * movement_speed
+	var distance = global_position.distance_to(player.global_position)
+	
+	if distance > 20:
+		velocity = direction * movement_speed
+	else:
+		var perpendicular = Vector2(-direction.y, direction.x)
+		velocity = perpendicular * movement_speed * 0.5
+	
 	move_and_slide()
 	
 	if direction.x > 0.1:
 		sprite.flip_h = false
-	elif  direction.x < -0.1:
+	elif direction.x < -0.1:
 		sprite.flip_h = true
 
 func drop_exp():

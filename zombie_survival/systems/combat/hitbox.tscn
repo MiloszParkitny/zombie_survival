@@ -11,6 +11,5 @@ script = ExtResource("1_orx6n")
 
 [node name="DisableHitBoxTimer" type="Timer" parent="." unique_id=553620922]
 wait_time = 0.5
-one_shot = true
 
 [connection signal="timeout" from="DisableHitBoxTimer" to="." method="_on_disable_hit_box_timer_timeout"]
